@@ -1,0 +1,25 @@
+services:
+  vgfuzz:
+    container_name: game_aflpp # 対象ゲームに合わせて変更
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/game/host
+      - /mnt/wslg:/mnt/wslg
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+      - /.config/pulse:/root/.config/pulse
+
+    environment:
+      - PULSE_COOKIE=/mnt/wslg/pulse-cookie
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+      - DISPLAY=$DISPLAY
+      - PULSE_SERVER=${PULSE_SERVER}
+      - WAYLAND_DISPLAY=$WAYLAND_DISPLAY
+      - XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR
+      - LANG=POSIX
+
+    command: bash
+    stdin_open: true
+    tty: true

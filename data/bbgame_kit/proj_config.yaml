@@ -1,0 +1,49 @@
+proj_dir: "/game/vgFuzz/out/251229"
+processing_method: 1
+
+methods:
+  - name: "dict"
+    id: 1
+    build_flags: "-DVGFUZZ=1"
+    aflpp_args: "-x /game/vgFuzz/dict/bb.dict -i /game/vgFuzz/in/norm/"
+    aflpp_preprocess: ""
+
+  - name: "ijon"
+    id: 2
+    build_flags: "-DVGFUZZ=1 -DMODE_IJON=1 -D_USE_ION=1"
+    aflpp_args: "-x /game/vgFuzz/dict/bb.dict -i /game/vgFuzz/in/norm/"
+    aflpp_preprocess: ""
+  
+  - name: "vgin"
+    id: 3
+    build_flags: "-DVGFUZZ=1 -DMODE_VGIN=1"
+    aflpp_args: "-i /game/vgFuzz/in/vgin/t1/seeds/"
+    aflpp_preprocess: "/game/vgFuzz/shells/vgin_preprocess.sh"
+
+  - name: "comp"
+    id: 4
+    build_flags: "-DVGFUZZ=1 -DMODE_IJON=1 -D_USE_ION=1 -DMODE_VGIN=1"
+    aflpp_args: "-i /game/vgFuzz/in/vgin/t1/seeds/"
+    aflpp_preprocess: "/game/vgFuzz/shells/vgin_preprocess.sh"
+
+  - name: "debug_norm"
+    id: 5
+    build_flags: "-DVGFUZZ=1 -DDEBUG_MODE=1"
+    aflpp_args: "-i /game/vgFuzz/in/norm/"
+    aflpp_preprocess: ""
+
+  - name: "debug_vgin"
+    id: 6
+    build_flags: "-DVGFUZZ=1 -DMODE_VGIN=1 -DDEBUG_MODE=1"
+    aflpp_args: "-i /game/vgFuzz/in/vgin/t1/seeds/"
+    aflpp_preprocess: "/game/vgFuzz/shells/vgin_preprocess.sh"
+
+
+
+sut_dir: "/game/vgFuzz/sut/"
+sut_prename: "bb_"
+test_count: 12
+instance_count: 3
+test_seconds: 86400
+testcase_mseconds: 60000
+memory_limit: none
